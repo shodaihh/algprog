@@ -1,3 +1,5 @@
+#usr/bin/env python3
+#-*-coding:utf-8-*-
 from test import testEqual
 import math
 
@@ -10,3 +12,4 @@ t = areaDeCirculo(1)
 testEqual(t,math.pi)
 t = areaDeCirculo(100)
 testEqual(t,31415.926535897932)
+exit(0)
