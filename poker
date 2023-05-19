@@ -16,7 +16,7 @@ def verificar_mao(cartas):
   valores = [valor_carta(carta) for carta in cartas]
   naipes = [naipe(carta) for carta in cartas]
   
-  if len(set(naipes)) == ':
+  if len(set(naipes)) == 1:
     return 'Flush'
 
   valores.sort()
