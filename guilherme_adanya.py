@@ -1,3 +1,12 @@
+#**************************************************
+# *
+# * Guilherme Hideki Adanya
+# * Trabalho 1
+# * Professor: Marco Aurelio Stefanes
+# *
+
+
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
