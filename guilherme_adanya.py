@@ -1,8 +1,8 @@
 #**************************************************
 # *
 # * Guilherme Hideki Adanya
-# * Trabalho 1
-# * Professor: Marco Aurelio Stefanes
+# * Trabalho 2
+# * Professor: Marco Aurélio 
 # *
 
 
@@ -11,64 +11,74 @@
 # -*- coding: utf-8 -*-
 
 
-def valor_carta(carta):
-  valores = {'J' : 11, 'Q': 12 , 'K' :13, 'A':14}
-  if carta.isdigit():
-    return int(carta)
-  else:
-    return valores[carta]
-    
-def naipe(carta):
-  return carta[-1]
-  
-def verificar_mao(cartas):
-  valores = [valor_carta(carta) for carta in cartas]
-  naipes = [naipe(carta) for carta in cartas]
-  
-  if len(set(naipes)) == 1:
-    return 'Flush'
+class Postagem:
+    def __init__(self, conteudo, hashtags):
+        self.conteudo = conteudo
+        self.hashtags = hashtags
 
-  valores.sort()
-  
-  if valores == list(range(valores[0] , valores [0] + 5 )):
-    return 'Sequência'
-    
-  for valor in set(valores):
-    if valores.count(valor) == 4:
-      return 'Quadra'
-    elif valores.count(valor) == 3: 
-      if 2 in set(valores):
-        return 'Full House'
-      else:
-        return 'Trinca'
-    elif valores.count(valor) == 2: 
-      if len(set(valores)) == 3:
-        return 'Dois Pares'
-      else:
-        return 'Par'
-     
-  return 'Carta mais alta'
-  
-def comparar_maos(mao1 , mao2):
-  maos = ['Flush' , 'Sequencia' , 'Quadra' , 'Full House' , 'Trinca' , 'Dois Pares' , 'Par', 'Carta mais alta']
-  if maos.index(mao1) > maos.index(mao2) :
-    return 1 
-  elif maos.index(mao1) < maos.index(mao2):
-    return 2 
-  else:
-    return 'E'
-    
-def resolver_jogo(casos_teste):
-    for _ in range(casos_teste):
-        cartas1 = input().split()
-        cartas2 = input().split()
+class RedeSocial:
+    def __init__(self):
+        self.postagens = []  # Lista de postagens
+        self.hashtags = {}  # Dicionário de hashtags e suas contagens
 
-        mao1 = verificar_mao(cartas1)
-        mao2 = verificar_mao(cartas2)
+    def inserir_postagem(self, conteudo):
+        hashtags = self.extract_hashtags(conteudo)  # Extrai as hashtags do conteúdo da postagem
+        postagem = Postagem(conteudo, hashtags)  # Cria um objeto Postagem com o conteúdo e as hashtags
+        self.postagens.append(postagem)  # Adiciona a postagem à lista de postagens
 
-        resultado = comparar_maos(mao1, mao2)
-        print(resultado)
-        
-exit(0)
+        for hashtag in hashtags:
+            if hashtag in self.hashtags:
+                self.hashtags[hashtag] += 1  # Incrementa a contagem se a hashtag já existe no dicionário
+            else:
+                self.hashtags[hashtag] = 1  # Adiciona a hashtag com contagem 1 ao dicionário se for a primeira ocorrência
+
+    def numero_hashtags(self, conteudo):
+        hashtags = []
+        words = conteudo.split()
+        for word in words:
+            if word.startswith("#"):
+                hashtags.append(word[1:])  # Remove o "#" e adiciona a hashtag à lista
+        return hashtags
+
+    def listar_hashtags(self):
+        for hashtag, count in sorted(self.hashtags.items()):  # Ordena as hashtags em ordem alfabética
+            print(f'#{hashtag} {count}')  # Imprime a hashtag e sua contagem
+
+    def post_hashtag(self, hashtag):
+        for postagem in self.postagens:
+            if hashtag in postagem.hashtags:
+                print(postagem.conteudo)  # Imprime o conteúdo da postagem se a hashtag estiver presente
+
+    def teste(self):
+        self.postagens = []  # Limpa a lista de postagens
+        self.hashtags = {}  # Limpa o dicionário de hashtags e suas contagens
+
+
+rede_social = RedeSocial()
+
+casos_teste = int(input())
+
+for i in range(casos_teste):
+    while True:
+        entrada = input().split()
+        operaçao = entrada[0]
+
+        if operaçao == "I":
+            conteudo = ' '.join(entrada[1:])
+            rede_social.inserir_postagem(conteudo)
+
+        elif operaçao == "L":
+            rede_social.listar_hashtags()
+
+        elif operaçao == "P":
+            hashtag = entrada[1]
+            rede_social.post_hashtag(hashtag)
+
+        elif operacao == "F":
+            rede_social.caso_de_teste()
+            print()  
+            break
+
+
     
     
