@@ -78,6 +78,7 @@ for i in range(casos_teste):
             rede_social.caso_de_teste()
             print()  
             break
+exit(0)
 
 
     
